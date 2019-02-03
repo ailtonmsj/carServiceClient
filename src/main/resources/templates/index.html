@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header" />
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">Client</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                <li class="hidden">
+                    <a class="page-scroll" href="#page-top"></a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#client">Client Info</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#public">Public Info</a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Intro Section -->
+<section id="intro" class="intro-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!--<h1>Scrolling Nav</h1>-->
+                <!--<br />-->
+                <div class="jumbotron">
+                    <h1>Client</h1>
+                    <h2>Authorization Code: <span th:text="${authCode}" id="auth-code"></span></h2>
+                    <h2>Access Token: <span th:text="${token}" id="token"></span></h2>
+                    <br />
+                    <a id="button-getAuthCode" class="btn btn-primary" th:href="@{/getAuthCode}">Get Auth Code</a>
+                    <a id="button-getToken" class="btn btn-primary" th:href="@{/getToken}">Get Access Token</a>
+                    <a id="button-getResource" class="btn btn-primary" th:href="@{/getResource}">Get Client Resource</a>
+                </div>
+                <br />
+                <!--<p><strong>Usage Instructions:</strong> Make sure to include the <code>scrolling-nav.js</code>, <code>jquery.easing.min.js</code>, and <code>scrolling-nav.css</code> files. To make a link smooth scroll to another section on the page, give the link the <code>.page-scroll</code> class and set the link target to a corresponding ID on the page.</p>-->
+                <a class="btn btn-default page-scroll" href="client">Click Me to Scroll Down!</a>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+<!-- Client Info Section -->
+<section id="client" class="client-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Client Info</h1>
+                <table class="table table-striped table-bordered table-hover">
+                    <tr>
+                        <th>Id</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Gender</th>
+                        <th>Status</th>
+                        <th>Car</th>
+                    </tr>
+                    <tr data-th-each="client : ${clientList}">
+                        <td data-th-text="${client.id}">...</td>
+                        <td data-th-text="${client.firstName}">...</td>
+                        <td data-th-text="${client.lastName}">...</td>
+                        <td data-th-text="${client.gender.acronym}">...</td>
+                        <td data-th-text="${client.status.acronym}">...</td>
+                        <td data-th-text="${client.car.brand} - ${client.car.model} - ${client.car.version}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Public Info Section -->
+<section id="public" class="public-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="jumbotron">
+                    <h1>Public Info</h1>
+                    <p>Public Info:</p>
+                    <a id="button-getCarAmount" class="btn btn-primary" th:href="@{/getPublicResource/carAmount}">Get Public Resource Car Amount</a>
+                    
+                    <a id="button-getClientAmount" class="btn btn-primary" th:href="@{/getPublicResource/clientAmount}">Get Public Resource Client Amount</a>
+                    
+                    <br/>
+                    <br/>
+                    Car Amount: <span th:text="${carAmount}" id="carAmount"></span></p>
+                    <br/>
+                    Client Amount: <span th:text="${clientAmount}" id="clientAmount"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="common/header :: body-bottom-scripts" />
+
+</body>
+</html>
