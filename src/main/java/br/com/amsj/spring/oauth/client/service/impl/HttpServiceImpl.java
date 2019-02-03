@@ -68,7 +68,7 @@ public class HttpServiceImpl implements HttpService{
     public List<Client> getResource(String token) throws IOException, JSONException {
         CloseableHttpClient client = HttpClients.createDefault();
 
-        HttpGet httpGet = new HttpGet("http://localhost:9082/client/list");
+        HttpGet httpGet = new HttpGet("http://localhost:9092/client/list");
         httpGet.setHeader("Authorization", "bearer "+token);
         CloseableHttpResponse response = client.execute(httpGet);
 
@@ -88,6 +88,7 @@ public class HttpServiceImpl implements HttpService{
 
         List<Client> clientist = new ArrayList<>();
 
+        // TODO AMSJ - NEED AJUSTMENTS FOR TOKEN PROBLEM
         JSONArray jsonarray = new JSONArray(result.toString());
 
         ObjectMapper mapper = new ObjectMapper();
