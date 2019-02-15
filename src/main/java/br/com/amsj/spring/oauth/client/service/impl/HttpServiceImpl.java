@@ -39,7 +39,7 @@ public class HttpServiceImpl implements HttpService{
         httpPost.setHeader("Authorization", credential);
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", "bruce"));
+        params.add(new BasicNameValuePair("client_id", "carServiceClient"));
         params.add(new BasicNameValuePair("redirect_uri", "http://localhost:9090/authCode"));
         params.add(new BasicNameValuePair("code", authCode));
         params.add(new BasicNameValuePair("grant_type", "authorization_code"));
@@ -56,7 +56,7 @@ public class HttpServiceImpl implements HttpService{
             result.append(line);
         }
 
-        System.out.println(result.toString());
+        System.out.println("--> result: " + result.toString());
 
         JSONObject jsonObject = new JSONObject(result.toString());
 

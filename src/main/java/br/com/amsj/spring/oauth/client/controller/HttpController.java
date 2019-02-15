@@ -25,6 +25,7 @@ public class HttpController {
 	@RequestMapping("/authCode")
     public String showAuthCode(@RequestParam("code") String authCode, Model model) {
         this.authCode = authCode;
+
         System.out.println(authCode);
 
         model.addAttribute("authCode", authCode);
@@ -42,14 +43,19 @@ public class HttpController {
 	
 	@RequestMapping("/getAuthCode")
     public String redirect() {
+		
 		System.out.println("--> getAuthCode");
-        return "redirect:http://localhost:9091/oauth/authorize?response_type=code&client_id=bruce&redirect_uri=http://localhost:9090/authCode";
+        
+		return "redirect:http://localhost:9091/oauth/authorize?response_type=code&client_id=carServiceClient&redirect_uri=http://localhost:9090/authCode";
     }
 	
 	@RequestMapping("/getToken")
     public String getToken(Model model) throws IOException {
-        JSONObject jsonObject = httpService.getToken(this.authCode);
+        
+		JSONObject jsonObject = httpService.getToken(this.authCode);
 
+        System.out.println("--> jsonObject: " + jsonObject.getString("access_token"));
+        
         this.token = (String) jsonObject.get("access_token");
 
         model.addAttribute("authCode", "Auth Code Expired");
