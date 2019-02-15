@@ -42,7 +42,8 @@ public class HttpController {
 	
 	@RequestMapping("/getAuthCode")
     public String redirect() {
-        return "redirect:http://localhost:9091/oauth/authorize?response_type=code&client_id=acme&redirect_uri=http://127.0.0.1:9090/authCode";
+		System.out.println("--> getAuthCode");
+        return "redirect:http://localhost:9091/oauth/authorize?response_type=code&client_id=bruce&redirect_uri=http://localhost:9090/authCode";
     }
 	
 	@RequestMapping("/getToken")
