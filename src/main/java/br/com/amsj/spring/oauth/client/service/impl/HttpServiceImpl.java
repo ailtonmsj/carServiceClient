@@ -29,7 +29,8 @@ import br.com.amsj.spring.oauth.client.service.HttpService;
 @Service
 public class HttpServiceImpl implements HttpService{
 
-    String credential = "Basic "+ Base64.getEncoder().encodeToString("bruce&password".getBytes());
+	// CLIENT-ID AND CLIENT-SECRET
+    String credential = "Basic "+ Base64.getEncoder().encodeToString("carServiceClient:clientSecret".getBytes());
 
     public JSONObject getToken(String authCode) throws IOException, JSONException {
         CloseableHttpClient client = HttpClients.createDefault();
@@ -39,7 +40,6 @@ public class HttpServiceImpl implements HttpService{
         httpPost.setHeader("Authorization", credential);
 
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("client_id", "carServiceClient"));
         params.add(new BasicNameValuePair("redirect_uri", "http://localhost:9090/authCode"));
         params.add(new BasicNameValuePair("code", authCode));
         params.add(new BasicNameValuePair("grant_type", "authorization_code"));
