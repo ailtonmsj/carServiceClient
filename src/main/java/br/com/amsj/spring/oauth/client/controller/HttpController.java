@@ -3,8 +3,11 @@ package br.com.amsj.spring.oauth.client.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.http.client.HttpClient;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,11 +55,15 @@ public class HttpController {
 	@RequestMapping("/getToken")
     public String getToken(Model model) throws IOException {
         
-		JSONObject jsonObject = httpService.getToken(this.authCode);
-
-        System.out.println("--> jsonObject: " + jsonObject.getString("access_token"));
-        
-        this.token = (String) jsonObject.get("access_token");
+		 ResponseEntity<String> responseEntity = httpService.getToken(this.authCode);
+		 
+		 if(responseEntity.getStatusCode() == HttpStatus.OK) {
+			 JSONObject jsonObject = new JSONObject(responseEntity.getBody().toString());
+			 System.out.println("--> jsonObject: " + jsonObject.getString("access_token"));
+			 this.token = (String) jsonObject.get("access_token");
+		 }else {
+			 this.token = responseEntity.getStatusCode().toString();
+		 }
 
         model.addAttribute("authCode", "Auth Code Expired");
         model.addAttribute("token", token);
