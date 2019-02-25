@@ -1,9 +1,11 @@
 package br.com.amsj.spring.oauth.client.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.http.client.HttpClient;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,13 +75,25 @@ public class HttpController {
 	
 	@RequestMapping("/getResource")
     public String getResource(Model model) throws IOException {
-        List<Client> clientList = httpService.getResource(this.token);
+        ResponseEntity<Client[]> responseEntity = httpService.getResource(this.token);
 
+        if(responseEntity.getStatusCode() == HttpStatus.OK) {
+	        model.addAttribute("clientList", responseEntity.getBody());
+        }
         model.addAttribute("authCode", "Auth Code Expired");
         model.addAttribute("token", token);
-        model.addAttribute("clientList", clientList);
 
         return "index";
+    }
+	
+	public List<Client> responseParser(ResponseEntity<Client[]> responseEntity) throws IOException, JSONException {
+        
+    	if(responseEntity.getStatusCode() == HttpStatus.OK) {
+    		Client[] clients = responseEntity.getBody();
+    		return Arrays.asList(clients);
+    	}else {
+    		return null; 
+    	}
     }
 	
 	@RequestMapping("/getPublicResource/carAmount")

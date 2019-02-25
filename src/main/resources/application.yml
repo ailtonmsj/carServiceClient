@@ -3,4 +3,12 @@ server:
   
 acceptableErrorStatus: OK
 
+application:
+  oauth:
+    configuration:
+      client-secret: clientSecret 
+      client-id: carServiceClient
+
+resource-server:
+  url: http://localhost:9092
           

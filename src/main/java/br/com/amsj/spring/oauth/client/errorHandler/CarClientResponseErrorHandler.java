@@ -30,6 +30,7 @@ public class CarClientResponseErrorHandler implements ResponseErrorHandler {
 
 	@Override
 	public boolean hasError(ClientHttpResponse response) throws IOException {
+		log.error("--> HTTP STATUS CODE: " + response.getStatusCode());
 		return acceptableStatus.contains(response.getStatusCode());
 	}
 
