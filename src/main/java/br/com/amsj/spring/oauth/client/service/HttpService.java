@@ -15,7 +15,7 @@ public interface HttpService {
 	
 	ResponseEntity<String> getToken(String authCode) throws IOException, JSONException;
 
-	ResponseEntity<Client[]> getResource(String token) throws IOException, JSONException {
+	ResponseEntity<Client[]> getResource(String token) throws IOException, JSONException;
 
 	String getPublicCarAmount() throws ClientProtocolException, IOException;
 
